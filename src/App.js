@@ -35,7 +35,7 @@ function App() {
             <p className="hora">{dataHora.hora}</p>
           </>
         ) : (
-          <p>Erro ao carregar 😢</p>
+          <p>Erro ao carregar</p>
         )}
       </div>
     </div>
