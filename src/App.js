@@ -6,7 +6,7 @@ function App() {
 
   async function carregarDataHora() {
     try {
-      const response = await fetch("https://api-data-hora-cj2u.onrender.com");
+      const response = await fetch("https://api-data-hora-cj2u.onrender.com/data-hora");
       const dados = await response.json();
 
       setDataHora({
