@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [dataHora, setDataHora] = useState("Carregando...");
+
+  async function carregarDataHora() {
+    try {
+      const response = await fetch("http://localhost:3001/data-hora");
+      const dados = await response.json();
+
+      setDataHora({
+        data: dados.data,
+        hora: dados.hora
+      });
+    } catch (erro) {
+      setDataHora(null);
+      console.error(erro);
+    }
+  }
+
+  useEffect(() => {
+    carregarDataHora();
+    setInterval(carregarDataHora, 1000);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="card">
+        <h1>Atv 8: API Data e Hora</h1>
+
+        {dataHora ? (
+          <>
+            <p className="data">{dataHora.data}</p>
+            <p className="hora">{dataHora.hora}</p>
+          </>
+        ) : (
+          <p>Erro ao carregar 😢</p>
+        )}
+      </div>
     </div>
   );
 }
